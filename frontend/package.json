@@ -41,6 +41,7 @@
   "devDependencies": {
     "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "gh-pages": "^6.2.0",
     "react-app-rewire-alias": "^1.1.7",
     "react-app-rewired": "^2.2.1"
   }
