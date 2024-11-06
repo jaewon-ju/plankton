@@ -1,6 +1,5 @@
 import "@/App.css";
-import React, { createContext, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 export default function App() {
   return (
