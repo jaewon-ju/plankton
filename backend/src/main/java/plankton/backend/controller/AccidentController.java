@@ -32,9 +32,6 @@ public class AccidentController {
         this.accidentService = accidentService;
     }
 
-    @Value("${image.file-path}")
-    private String uploadDir;
-
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
     @Operation(
@@ -66,23 +63,18 @@ public class AccidentController {
             @RequestParam("category") int category,
             @RequestParam("img") MultipartFile img) throws IOException {
 
-        // 이미지 처리
-        String imgName = null;
-        String fileName = img.getOriginalFilename();
-        Path path = Paths.get(uploadDir, fileName);
-        Files.createDirectories(path.getParent());
-        Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        // 이미지 데이터를 바이트 배열로 변환
+        byte[] imgData = img.getBytes();
 
-
-        // Accident 생성
+        // AccidentDTO 생성
         AccidentDTO accidentDTO = AccidentDTO.builder()
-                .eventId(1L)
+                .eventId(1L) // 예시용 eventId
                 .longitude(longitude)
                 .latitude(latitude)
                 .title(title)
                 .content(content)
                 .category(category)
-                .img(fileName) // 저장한 이미지 이름만 설정
+                .img(imgData) // 이미지 데이터를 설정
                 .build();
 
         accidentService.createAccident(accidentDTO);
