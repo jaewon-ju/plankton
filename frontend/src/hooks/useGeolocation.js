@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useGeoloaction = () => {
+const useGeolocation = () => {
   const [currentMyLocation, setCurrentMyLocation] = useState({
     lat: 0,
     lng: 0,
@@ -34,4 +34,4 @@ const useGeoloaction = () => {
   return { currentMyLocation, locationLoading, getCurPosition };
 };
 
-export default useGeoloaction;
+export default useGeolocation;
