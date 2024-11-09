@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import "@/styles/Main.css";
 import MainMap from "@/components/MainMap/MainMap";
 import useGeolocation from "@/hooks/useGeolocation";
