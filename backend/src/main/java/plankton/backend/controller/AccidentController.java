@@ -1,5 +1,6 @@
 package plankton.backend.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @RestController
@@ -29,6 +31,9 @@ public class AccidentController {
     public AccidentController(AccidentService accidentService) {
         this.accidentService = accidentService;
     }
+
+    @Value("${image.file-path}")
+    private String uploadDir;
 
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
@@ -63,15 +68,14 @@ public class AccidentController {
 
         // 이미지 처리
         String imgName = null;
-        if (!img.isEmpty()) {
-            imgName = img.getOriginalFilename();
-            Path imgPath = Paths.get("src/main/resources/static/" + imgName);
-            Files.createDirectories(imgPath.getParent());
-            img.transferTo(imgPath.toFile());
-        }
+        String fileName = img.getOriginalFilename();
+        Path path = Paths.get(uploadDir, fileName);
+        Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
 
         // Accident 생성
         AccidentDTO accidentDTO = AccidentDTO.builder()
+                .eventId(1L)
                 .longitude(longitude)
                 .latitude(latitude)
                 .title(title)
