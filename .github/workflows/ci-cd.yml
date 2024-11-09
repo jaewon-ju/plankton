@@ -32,7 +32,7 @@ jobs:
 
       - name: Deploy using Docker Compose
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/app/backend && docker-compose down && docker-compose up -d"
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/app/backend && sudo docker-compose down && sudo docker-compose up -d"
 
       - name: Clean up SSH Key
         run: rm -f key.pem
