@@ -70,6 +70,7 @@ public class AccidentController {
         String imgName = null;
         String fileName = img.getOriginalFilename();
         Path path = Paths.get(uploadDir, fileName);
+        Files.createDirectories(path.getParent());
         Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
 
@@ -81,7 +82,7 @@ public class AccidentController {
                 .title(title)
                 .content(content)
                 .category(category)
-                .img(imgName) // 저장한 이미지 이름만 설정
+                .img(fileName) // 저장한 이미지 이름만 설정
                 .build();
 
         accidentService.createAccident(accidentDTO);

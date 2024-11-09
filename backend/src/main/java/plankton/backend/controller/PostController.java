@@ -45,17 +45,17 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("")
     @Transactional
-    @Operation(summary = "Get a Post by ID", responses = {
+    @Operation(summary = "Get All Posts", responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PostDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Post not found",
+            @ApiResponse(responseCode = "404", description = "Posts not found",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> getPostById(@PathVariable Long id) {
-        PostDTO postDto = postService.getPostById(id);
-        return ResponseEntity.ok(postDto);
+    public ResponseEntity<?> getAllPosts() {
+        List<PostDTO> postDtoList = postService.getAllPosts();
+        return ResponseEntity.ok(postDtoList);
     }
 
     @PostMapping(value = "/")
