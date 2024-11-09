@@ -4,7 +4,7 @@ import {
   Marker,
   useNavermaps,
 } from "react-naver-maps";
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import "./MainMap.css";
 
