@@ -1,6 +1,8 @@
 package plankton.backend.controller;
 
 import jakarta.validation.Valid;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jose4j.lang.JoseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,6 +33,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@Slf4j
 @RequestMapping("/posts")
 public class PostController {
 
@@ -94,10 +97,9 @@ public class PostController {
     private void sendPushNotification(Subscription subscription, String payload) {
         try {
             PushService pushService = new PushService(publicKey, privateKey);
-            Notification notification = new Notification(subscription.getEndpoint(), subscription.getKeys().getP256dh(),
-                    subscription.getKeys().getAuth(), payload);
+            Notification notification = new Notification(subscription, payload);
             pushService.send(notification);
-            System.out.println("Notification sent to: " + subscription.getEndpoint());
+            log.info("Notification sent to: " + subscription.getEndpoint());
         } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
             System.err.println("Notification error: " + e.getMessage());
         }
@@ -105,35 +107,11 @@ public class PostController {
 }
 
 // Subscription 클래스 (구독 정보 DTO)
-class Subscription {
+class Subscription extends nl.martijndwars.webpush.Subscription {
+    @Getter
     private String endpoint;
-    private Long expirationTime;
-    private Keys keys;
-
-    // Getters와 Setters
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public Long getExpirationTime() {
-        return expirationTime;
-    }
-
-    public Keys getKeys() {
-        return keys;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public void setExpirationTime(Long expirationTime) {
-        this.expirationTime = expirationTime;
-    }
-
-    public void setKeys(Keys keys) {
-        this.keys = keys;
-    }
+    private String expirationTime;
+    private String keys;
 
     public static class Keys {
         private String p256dh;
