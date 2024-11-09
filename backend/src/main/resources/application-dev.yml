@@ -34,11 +34,11 @@ spring:
     compose:
       lifecycle-management: none
 
-  openai:
-    api-key: dummy-key
-    base-url: https://api.openai.com/v1/assistants
-    instructions_magma:
-      search the information from file
+openai:
+  api-key: dummy-key
+  base-url: https://api.openai.com/v1/assistants
+  instructions_magma:
+    search the information from file
 
 springdoc:
   api-docs:
