@@ -1,7 +1,5 @@
-// App.js
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 import "@/App.css";
 import Main from "@/pages/Main";
 import List from "@/pages/List";
@@ -10,7 +8,6 @@ import Chat from "@/pages/Chat";
 import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import Notice from "@/pages/Notice";
 import FloatingButton from "@/components/FloatingButton/FloatingButton";
-
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -24,8 +21,6 @@ function AppContent() {
         <Route path="/notice" element={<Notice />} />
         <Route path="/current" element={<Current />} />
         <Route path="/chat" element={<Chat />} />
-
-        {/* <Route path="*" element={<Error />} /> */}
       </Routes>
       {!(
         location.pathname === "/" ||
@@ -46,14 +41,15 @@ export default function App() {
           );
           console.log("Service worker registration succeeded:", registration);
 
-          // Check notification permission status
           if (Notification.permission === "default") {
             console.log("Requesting notification permission...");
             const permission = await Notification.requestPermission();
             if (permission === "granted") {
               console.log("Notification permission granted.");
-              await registerPushSubscription(); // Call push subscription function
-              console.log("Push subscription successfully registered.");
+              const subscriptionSuccess = await registerPushSubscription();
+              if (subscriptionSuccess) {
+                console.log("Push subscription successfully registered.");
+              }
             } else if (permission === "denied") {
               console.warn("Notification permission denied by user.");
               alert(
@@ -62,8 +58,10 @@ export default function App() {
             }
           } else if (Notification.permission === "granted") {
             console.log("Notification permission already granted.");
-            await registerPushSubscription();
-            console.log("Push subscription successfully registered.");
+            const subscriptionSuccess = await registerPushSubscription();
+            if (subscriptionSuccess) {
+              console.log("Push subscription successfully registered.");
+            }
           } else if (Notification.permission === "denied") {
             console.warn("Notification permission already denied.");
             alert(
