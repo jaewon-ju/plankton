@@ -51,9 +51,7 @@ export default function Main() {
 
   return (
     <div className="main-container">
-      <div className="main-logo">
-        <img src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
-      </div>
+      
       {isLoading ? (
         <div className="main-loading">
           <p>데이터를 불러오는 중입니다...</p>
