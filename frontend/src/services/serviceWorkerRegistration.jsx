@@ -1,21 +1,23 @@
+import { fetchAPI } from "@/utils/fetch_api";
+
 async function registerPushSubscription() {
+  console.log("test");
   const registration = await navigator.serviceWorker.ready;
 
   const publicVapidKey =
     "BB4P3QAB6tIVb0DBufMf3YQXIpZqPpT30l5YHsevtR09AUvFDQ9cOgIADZa_it1NUAjJeFAx6lRlXhZvPhr42Zo";
 
-  // 재시도 함수
+  console.log(publicVapidKey);
+
   async function attemptSubscription(retries = 3) {
     let subscription = null;
 
-    // 재시도 루프
     for (let i = 0; i < retries; i++) {
       subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
       });
 
-      // 키가 존재하는지 확인
       if (
         subscription.keys &&
         subscription.keys.p256dh &&
@@ -25,7 +27,7 @@ async function registerPushSubscription() {
       }
 
       console.warn("Subscription keys missing, retrying...");
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 대기
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     throw new Error("Failed to retrieve subscription keys after retries.");
@@ -43,26 +45,26 @@ async function registerPushSubscription() {
       },
     };
 
-    const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/posts/save-subscription`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formattedSubscription),
-      }
+    // Logging formattedSubscription to verify data
+    console.log("Formatted subscription:", formattedSubscription);
+
+    // Making the API call and logging response status
+    const { status } = await fetchAPI(
+      "POST",
+      "/posts/save-subscription",
+      formattedSubscription
     );
 
-    if (!response.ok) {
-      console.error(
-        "Failed to send subscription data:",
-        response.status,
-        response.statusText
-      );
-    } else {
+    if (status === 200) {
       console.log("Subscription data sent successfully.");
+      return true;
+    } else {
+      console.error("Failed to send subscription data with status:", status);
+      return false;
     }
   } catch (error) {
     console.error("Failed to subscribe to push notifications:", error);
+    return false;
   }
 }
 
