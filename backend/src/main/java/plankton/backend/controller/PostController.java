@@ -79,20 +79,16 @@ public class PostController {
                 .build();
 
         postService.createPost(postDto);
-        return ResponseEntity.status(201).body("Post created successfully");
+
+        String payload = postRequest.getTitle() + " " +postRequest.getContent();
+        subscriptions.forEach(subscription -> sendPushNotification(subscription, payload));
+        return new ResponseEntity<>("Notifications sent!", HttpStatus.OK);
     }
 
     @PostMapping("/save-subscription")
     public ResponseEntity<?> saveSubscription(@RequestBody Subscription subscription) {
         subscriptions.add(subscription);
         return ResponseEntity.status(200).body("Subscription saved.");
-    }
-
-    @PostMapping("/send-alert")
-    public ResponseEntity<String> sendAlert() {
-        String payload = "{ \"title\": \"긴급 공지사항\", \"content\": \"긴급 사고 발생으로 인해 해당 구역 접근을 제한합니다.\", \"url\": \"https://example.com/notice\" }";
-        subscriptions.forEach(subscription -> sendPushNotification(subscription, payload));
-        return new ResponseEntity<>("Notifications sent!", HttpStatus.OK);
     }
 
     private void sendPushNotification(Subscription subscription, String payload) {
