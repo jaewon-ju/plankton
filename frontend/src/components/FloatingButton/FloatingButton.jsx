@@ -78,8 +78,8 @@ export default function FloatingButton() {
             </button>
             <button
               className="fab-menu-item"
-              onClick={(e) => handleNavigation("/chatbot", e)}
-              onKeyDown={(e) => handleKeyDown(e, "/chatbot")}
+              onClick={(e) => handleNavigation("/chat", e)}
+              onKeyDown={(e) => handleKeyDown(e, "/chat")}
             >
               챗봇에게 물어보기
             </button>

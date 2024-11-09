@@ -4,6 +4,7 @@ import "@/styles/Main.css";
 import MainMap from "@/components/MainMap/MainMap";
 import useGeolocation from "@/hooks/useGeolocation";
 import { getCongestionData } from "@/services/congestionService";
+import { FaRegFaceSurprise } from "react-icons/fa6";
 
 export default function Main() {
   const { currentMyLocation, locationLoading } = useGeolocation();
@@ -50,22 +51,42 @@ export default function Main() {
 
   return (
     <div className="main-container">
+      <div className="main-logo">
+        <img src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
+      </div>
       {isLoading ? (
-        <p>데이터를 불러오는 중입니다...</p>
+        <div className="main-loading">
+          <p>데이터를 불러오는 중입니다...</p>
+        </div>
       ) : (
-        <>
+        <div className="main-content">
           <div className="main-map-box">
+            <p>현재 내 위치</p>
             {locationLoading ? (
               <p>Loading location...</p>
             ) : (
               <MainMap currentLocation={currentMyLocation} />
             )}
           </div>
-          <p>{info.AREA_CONGEST_LVL}</p>
-          <p>{info.AREA_CONGEST_MSG}</p>
-          <p>인구 최소: {info.AREA_PPLTN_MIN}</p>
-          <p>인구 최대: {info.AREA_PPLTN_MAX}</p>
-        </>
+          
+          <div className="main-jam">
+            <h1>{hotspotName} 실시간 인구 혼잡도</h1>
+            <div className="main-jam-content">
+              <p>{info.AREA_CONGEST_LVL}</p>
+              <FaRegFaceSurprise />
+              <p>현재 실시간 인구: {info.AREA_PPLTN_MIN}~{info.AREA_PPLTN_MAX}명</p>
+              <ul>
+                {info.AREA_CONGEST_MSG &&
+                  info.AREA_CONGEST_MSG.split('.').map((sentence, index) => {
+                    const trimmedSentence = sentence.trim();
+                    if (trimmedSentence)
+                      return <li key={index}>{trimmedSentence}.</li>;
+                    return null;
+                  })}
+              </ul>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

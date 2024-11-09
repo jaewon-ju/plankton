@@ -1,11 +1,11 @@
-.main-container {
+.current-container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.main-map-box {
+.current-map-box {
   width: 90%;
   height: 250px;
   margin: 10px;
