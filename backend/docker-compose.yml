@@ -15,20 +15,20 @@ services:
     restart: unless-stopped
     networks:
       - backend
-
-  api:
-    build:
-      context: .
-      dockerfile: ./docker/api/Dockerfile
-    container_name: api
-    ports:
-      - "8080:8080"
-    volumes:
-      - /Users/Ruffles/Projects/plankton/plankton/backend/src/main/resources/static/img:/app/backend/src/main/resources/static/img
-    depends_on:
-      - postgres
-    networks:
-      - backend
+#
+#  api:
+#    build:
+#      context: .
+#      dockerfile: ./docker/api/Dockerfile
+#    container_name: api
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - /Users/Ruffles/Projects/plankton/plankton/backend/src/main/resources/static/img:/app/backend/src/main/resources/static/img
+#    depends_on:
+#      - postgres
+#    networks:
+#      - backend
 
 networks:
   backend:
