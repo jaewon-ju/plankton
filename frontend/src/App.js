@@ -1,16 +1,38 @@
 import "@/App.css";
-// import Pa1 from "@/pages/Pa1";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Start from "@/pages/start";
+import Main from "@/pages/Main";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSpot = () => {
+    navigate("/main");
+  };
+
+  return (
+    <div className="app-container">
+      {location.pathname === "/" && (
+        <button onClick={handleSpot}>go to main</button>
+      )}
+      <Routes>
+        <Route path="/main" element={<Main />} />
+        {/* <Route path="*" element={<Error />} /> */}
+      </Routes>
+    </div>
+  );
+}
 
 export default function App() {
   return (
-    <div className="app-container">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Start />} />
-        </Routes>
-      </Router>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <AppContent />
+    </Router>
   );
 }

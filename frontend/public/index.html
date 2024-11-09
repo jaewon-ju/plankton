@@ -16,8 +16,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script
+      type="text/javascript"
+      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=%REACT_APP_NAVER_MAP_API_KEY%"
+    ></script>
     <!-- pwa sw.js 정보 줄러오는 스크립트 추가 -->
-    <script>
+    <!-- <script>
       if ("serviceWorker" in navigator) {
         // Register a service worker hosted at the root of the
         // site using the default scope.
@@ -26,12 +30,12 @@
           .then((registration) => {
             console.log("Service worker registration succeeded:", registration);
           })
-          .catch((err) => {
+          .catch((error) => {
             console.log("Service worker registration failed:", error);
           });
       } else {
         console.log("Service workers are not supported.");
       }
-    </script>
+    </script> -->
   </body>
 </html>
