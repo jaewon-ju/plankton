@@ -66,7 +66,7 @@ public class PostController {
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> createPost(@ModelAttribute PostRequest postRequest) throws IOException {
+    public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) throws IOException {
 
         // Post 생성
         PostDTO postDto = PostDTO.builder()
