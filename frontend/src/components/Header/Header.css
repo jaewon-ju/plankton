@@ -1,5 +1,5 @@
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   background-color: #fff;
@@ -10,6 +10,7 @@
 }
 
 .header-container {
+  background-color: #fff;
   position: fixed;
   width: 400px;
   max-width: 1200px; /* 페이지와 동일한 최대 너비 설정 */
@@ -18,6 +19,7 @@
   justify-content: space-between;
   padding: 0 20px;
   height: 60px; /* 헤더 높이 */
+  border-bottom: 2px solid #f3f3f3;
 }
 
 .header-logo {
@@ -34,3 +36,4 @@
   width: 24px;
   height: 24px;
 }
+

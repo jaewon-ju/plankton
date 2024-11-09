@@ -10,41 +10,36 @@ import "./CurrentMap.css";
 
 export default function CurrentMap({ currentLocation }) {
   const navermaps = useNavermaps();
-  const [polygons, setPolygons] = useState([]); // 모든 폴리곤 저장
+  const [polygons, setPolygons] = useState([]);
 
   // 각 공원의 폴리곤 좌표 설정
   useEffect(() => {
     const parkPolygons = [
-      // 여의도 샛강생태공원
       [
-        new navermaps.LatLng(37.5197849, 126.917224), // 남서쪽 꼭짓점
-        new navermaps.LatLng(37.515335, 126.92649), // 남동쪽 꼭짓점
-        new navermaps.LatLng(37.5169011, 126.92810239), // 북동쪽 꼭짓점
-        new navermaps.LatLng(37.521247, 126.917224), // 북서쪽 꼭짓점
+        new navermaps.LatLng(37.5197849, 126.917224),
+        new navermaps.LatLng(37.515335, 126.92649),
+        new navermaps.LatLng(37.5169011, 126.92810239),
+        new navermaps.LatLng(37.521247, 126.917224),
       ],
-      // 여의도 한강공원
       [
         new navermaps.LatLng(37.5225771, 126.9381753),
         new navermaps.LatLng(37.5178799, 126.9420377),
         new navermaps.LatLng(37.5182203, 126.9453851),
         new navermaps.LatLng(37.5231898, 126.9406644),
       ],
-      // 서울 색공원
       [
-        new navermaps.LatLng(37.524645, 126.91852), // 남서쪽 꼭짓점
-        new navermaps.LatLng(37.525, 126.92), // 남동쪽 꼭짓점
+        new navermaps.LatLng(37.524645, 126.91852),
+        new navermaps.LatLng(37.525, 126.92),
         new navermaps.LatLng(37.52139, 126.919706),
-        new navermaps.LatLng(37.524, 126.925), // 북동쪽 꼭짓점
-        new navermaps.LatLng(37.53, 126.926), // 북서쪽 꼭짓점
+        new navermaps.LatLng(37.524, 126.925),
+        new navermaps.LatLng(37.53, 126.926),
       ],
-      // 여의도 공원
       [
         new navermaps.LatLng(37.5306094, 126.9257299),
         new navermaps.LatLng(37.5253, 126.934313),
         new navermaps.LatLng(37.5265253, 126.9365446),
         new navermaps.LatLng(37.5318345, 126.9284765),
       ],
-      //  소녀시대 숲
       [
         new navermaps.LatLng(37.5314261, 126.9217817),
         new navermaps.LatLng(37.5342848, 126.9229833),
@@ -56,19 +51,39 @@ export default function CurrentMap({ currentLocation }) {
     setPolygons(parkPolygons);
   }, [navermaps]);
 
+  // 색상 설정 배열
+  const fillColors = ["#ff000050", "#ffa50050", "#98fb9850"]; // 빨강, 주황, 연두
+  const strokeColors = ["#ff0000", "#ffa500", "#98fb98"];
+
   return (
     <MapDiv className="main-map">
+      {/* 범례 추가 */}
+      <div className="legend">
+        <div className="legend-item">
+          <span className="legend-color" style={{ backgroundColor: "#ff0000" }}></span>
+          위험
+        </div>
+        <div className="legend-item">
+          <span className="legend-color" style={{ backgroundColor: "#ffa500" }}></span>
+          주의
+        </div>
+        <div className="legend-item">
+          <span className="legend-color" style={{ backgroundColor: "#98fb98" }}></span>
+          안전
+        </div>
+      </div>
+
       <NaverMap
         zoomControl
         zoomControlOptions={{
           position: navermaps?.Position?.TOP_RIGHT,
         }}
-        defaultCenter={new navermaps.LatLng(37.52389, 126.92667)} // 여의도 중심 좌표 설정
-        minZoom={14} // 최소 줌 레벨 설정
+        defaultCenter={new navermaps.LatLng(37.52389, 126.92667)}
+        minZoom={14}
         maxBounds={
           new navermaps.LatLngBounds(
-            new navermaps.LatLng(37.515, 126.9241), // 여의도 남서쪽 끝 좌표
-            new navermaps.LatLng(37.533, 126.9369) // 여의도 북동쪽 끝 좌표
+            new navermaps.LatLng(37.515, 126.9241),
+            new navermaps.LatLng(37.533, 126.9369)
           )
         }
       >
@@ -76,8 +91,8 @@ export default function CurrentMap({ currentLocation }) {
           <Polygon
             key={`polygon-${index}`}
             paths={[path]}
-            fillColor="#0000ff50"
-            strokeColor="#0000ff"
+            fillColor={fillColors[index % 3]}
+            strokeColor={strokeColors[index % 3]}
             strokeWeight={2}
           />
         ))}

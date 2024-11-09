@@ -85,10 +85,14 @@
     background-color: transparent;
     border-radius: 15px;
     transition: all 0.3s ease;
+    color: #8b8b8b;
+
 
     &:hover {
       background-color: #ffe5df;
       color: #ff491c;
+      border:#ff491c;
+
     }
   }
 }
