@@ -25,7 +25,7 @@ self.addEventListener("push", (event) => {
     const options = {
       body: data.content,
       data: {
-        url: data.url,
+        url: "/notice",
       },
     };
 
@@ -48,7 +48,7 @@ self.addEventListener("notificationclick", (event) => {
       .then((clientList) => {
         const targetUrl = event.notification.data.url;
         for (const client of clientList) {
-          if (client.url === targetUrl && "focus" in client) {
+          if (client.url.includes(targetUrl) && "focus" in client) {
             return client.focus();
           }
         }
