@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import "@/App.css";
 import Main from "@/pages/Main";
+import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import Notice from "@/pages/Notice";
 import FloatingButton from "@/components/FloatingButton/FloatingButton";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function AppContent() {
   // const navigate = useNavigate();
@@ -46,7 +44,7 @@ export default function App() {
           if (Notification.permission === "default") {
             const permission = await Notification.requestPermission();
             if (permission === "granted") {
-              console.log("Notification permission granted.");
+              registerPushSubscription(); // 구독 생성 호출
             } else if (permission === "denied") {
               console.warn("Notification permission denied.");
               alert(

@@ -20,27 +20,25 @@ self.addEventListener("fetch", (e) => {
 
 // push event - 백엔드에서 받은 공지사항을 푸시 알림으로 표시
 self.addEventListener("push", (event) => {
+  console.log("Push event received");
   if (event.data && Notification.permission === "granted") {
     const data = event.data.json();
+    console.log(data);
 
     const options = {
       body: data.content,
-      icon: data.image || "default-icon.png",
       data: {
-        url: data.url,
-        title: data.title,
-        level: data.level,
-        timestamp: data.timestamp,
+        url: data.url, // 클릭 시 이동할 URL
       },
-      badge: "badge-icon.png",
     };
 
-    if (data.level === 1) {
-      options.vibrate = [200, 100, 200];
-      options.tag = "important-notice";
-    }
-
-    event.waitUntil(self.registration.showNotification(data.title, options));
+    // 알림 표시 시도
+    event.waitUntil(
+      self.registration
+        .showNotification(data.title, options)
+        .then(() => console.log("Notification displayed successfully"))
+        .catch((error) => console.error("Notification display failed:", error))
+    );
   } else {
     console.warn("Notification permission is not granted.");
   }
