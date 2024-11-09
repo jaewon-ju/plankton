@@ -3,7 +3,7 @@
 async function registerPushSubscription() {
   const registration = await navigator.serviceWorker.ready;
 
-  const publicVapidKey = "YOUR_PUBLIC_VAPID_KEY";
+  const publicVapidKey = "MYPUBLICKEY";
   const subscription = await registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
