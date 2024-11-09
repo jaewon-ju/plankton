@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useLocation, BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import "@/App.css";
 import Main from "@/pages/Main";
 import List from "@/pages/List";
@@ -44,16 +43,26 @@ export default function App() {
           );
           console.log("Service worker registration succeeded:", registration);
 
-          // 알림 권한 확인 후 요청
           if (Notification.permission === "default") {
+            console.log("Requesting notification permission...");
             const permission = await Notification.requestPermission();
             if (permission === "granted") {
-              registerPushSubscription(); // 구독 생성 호출
+              console.log("Notification permission granted.");
+              const subscriptionSuccess = await registerPushSubscription();
+              if (subscriptionSuccess) {
+                console.log("Push subscription successfully registered.");
+              }
             } else if (permission === "denied") {
-              console.warn("Notification permission denied.");
+              console.warn("Notification permission denied by user.");
               alert(
                 "알림 권한이 거부되었습니다. 브라우저 설정에서 권한을 허용해 주세요."
               );
+            }
+          } else if (Notification.permission === "granted") {
+            console.log("Notification permission already granted.");
+            const subscriptionSuccess = await registerPushSubscription();
+            if (subscriptionSuccess) {
+              console.log("Push subscription successfully registered.");
             }
           } else if (Notification.permission === "denied") {
             console.warn("Notification permission already denied.");
@@ -64,6 +73,8 @@ export default function App() {
         } catch (error) {
           console.error("Service worker registration failed:", error);
         }
+      } else {
+        console.warn("Service worker not supported in this browser.");
       }
     };
 

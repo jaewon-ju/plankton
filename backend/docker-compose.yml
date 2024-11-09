@@ -24,7 +24,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /app/backend/src/main/resources/static/img:/app/backend/src/main/resources/static/img
+      - /Users/Ruffles/Projects/plankton/plankton/backend/src/main/resources/static/img:/app/backend/src/main/resources/static/img
     depends_on:
       - postgres
     networks:

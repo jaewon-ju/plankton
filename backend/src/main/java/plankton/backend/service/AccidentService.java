@@ -2,12 +2,14 @@ package plankton.backend.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import plankton.backend.dto.AccidentDTO;
 import plankton.backend.entity.Accident;
 import plankton.backend.entity.Event;
 import plankton.backend.repository.AccidentRepository;
 import plankton.backend.repository.EventRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +35,7 @@ public class AccidentService {
                 .title(accidentDTO.getTitle())
                 .content(accidentDTO.getContent())
                 .category(accidentDTO.getCategory())
-                .img(accidentDTO.getImg())
+                .img(accidentDTO.getImg()) // 바이트 배열로 이미지 저장
                 .event(event)
                 .build();
 

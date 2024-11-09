@@ -39,56 +39,92 @@
   .message.sent {
     background-color: #ffdedf;
     align-self: flex-end;
-    margin : 10px;
-    
+    margin : 10px;}
 
-  }
-  
-  .message-image {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 5px;
-  }
-  
-  .message-text {
-    margin: 0;
-  }
-  
+.wchat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
 
-  
-  .input-container {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-  }
-  
-  input[type="text"] {
+.wchat-message {
+  max-width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+}
+
+.wchat-message.received {
+  background-color: #ffffff;
+  align-self: flex-start;
+  margin: 10px;
+}
+
+.wchat-message-time {
+  font-size: 12px;
+  color: #888;
+  position: absolute;
+  bottom: -18px;
+  right: 10px;
+}
+
+.wchat-message.sent {
+  background-color: #ffdedf;
+  align-self: flex-end;
+  margin: 10px;
+
+
+}
+
+.wchat-message-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.wchat-message-text {
+  margin: 0;
+}
+
+
+
+.wchat-input-container {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+
+  & input {
     flex-grow: 1;
     padding: 10px;
     border: none;
     border-radius: 20px;
     font-size: 14px;
     outline: none;
+
+    &::placeholder {
+      color: #bbb;
+    }
   }
-  
-  input[type="text"]::placeholder {
-    color: #bbb;
-  }
-  
-  .send-button {
-    background-color: #ff6b6b;
-    border: none;
-    color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    cursor: pointer;
-    outline: none;
-  }
-  
+}
+
+.wchat-send-button {
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  cursor: pointer;
+  outline: none;
+}

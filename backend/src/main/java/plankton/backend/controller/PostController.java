@@ -1,6 +1,9 @@
 package plankton.backend.controller;
 
 import jakarta.validation.Valid;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import nl.martijndwars.webpush.Subscription;
 import org.jose4j.lang.JoseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +15,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.web.multipart.MultipartFile;
 import plankton.backend.dto.PostDTO;
 import plankton.backend.dto.request.PostRequest;
 import plankton.backend.dto.response.SuccessResponse;
@@ -21,9 +23,6 @@ import org.springframework.beans.factory.annotation.Value;
 import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,15 +30,16 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@Slf4j
 @RequestMapping("/posts")
 public class PostController {
 
     private final PostService postService;
-    private List<Subscription> subscriptions = new ArrayList<>(); // 메모리에 구독 정보 저장
+    private Subscription subscription = null; // 메모리에 구독 정보 저장
 
-    private String publicKey = "MYPUBLICKEY"; // ToDo
+    private String publicKey = "BB4P3QAB6tIVb0DBufMf3YQXIpZqPpT30l5YHsevtR09AUvFDQ9cOgIADZa_it1NUAjJeFAx6lRlXhZvPhr42Zo"; // ToDo
 
-    private String privateKey = "MYPRIVATEKEY"; //ToDo
+    private String privateKey = "aWRI92zsdPlS5cRkgMwQ63PNzEFSxP3m2EMJRQCEE8Y"; //ToDo
 
     public PostController(PostService postService) {
         this.postService = postService;
@@ -81,78 +81,24 @@ public class PostController {
         postService.createPost(postDto);
 
         String payload = postRequest.getTitle() + " " +postRequest.getContent();
-        subscriptions.forEach(subscription -> sendPushNotification(subscription, payload));
+        sendPushNotification(subscription, payload);
         return new ResponseEntity<>("Notifications sent!", HttpStatus.OK);
     }
 
     @PostMapping("/save-subscription")
     public ResponseEntity<?> saveSubscription(@RequestBody Subscription subscription) {
-        subscriptions.add(subscription);
+        this.subscription = subscription;
         return ResponseEntity.status(200).body("Subscription saved.");
     }
 
     private void sendPushNotification(Subscription subscription, String payload) {
         try {
             PushService pushService = new PushService(publicKey, privateKey);
-            Notification notification = new Notification(subscription.getEndpoint(), subscription.getKeys().getP256dh(),
-                    subscription.getKeys().getAuth(), payload);
+            Notification notification = new Notification(subscription, payload);
             pushService.send(notification);
-            System.out.println("Notification sent to: " + subscription.getEndpoint());
+            log.info("good");
         } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
             System.err.println("Notification error: " + e.getMessage());
-        }
-    }
-}
-
-// Subscription 클래스 (구독 정보 DTO)
-class Subscription {
-    private String endpoint;
-    private Long expirationTime;
-    private Keys keys;
-
-    // Getters와 Setters
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public Long getExpirationTime() {
-        return expirationTime;
-    }
-
-    public Keys getKeys() {
-        return keys;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public void setExpirationTime(Long expirationTime) {
-        this.expirationTime = expirationTime;
-    }
-
-    public void setKeys(Keys keys) {
-        this.keys = keys;
-    }
-
-    public static class Keys {
-        private String p256dh;
-        private String auth;
-
-        public String getP256dh() {
-            return p256dh;
-        }
-
-        public String getAuth() {
-            return auth;
-        }
-
-        public void setP256dh(String p256dh) {
-            this.p256dh = p256dh;
-        }
-
-        public void setAuth(String auth) {
-            this.auth = auth;
         }
     }
 }
