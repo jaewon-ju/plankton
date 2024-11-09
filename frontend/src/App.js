@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "@/App.css";
+import Start from "@/pages/Start";
 import Main from "@/pages/Main";
 import List from "@/pages/List";
 import Current from "@/pages/Current";
@@ -19,7 +20,8 @@ function AppContent() {
     <div className="app-container">
       {showHeader && <Header />}
         <Routes>
-          <Route path="/" element={<List />} />
+          <Route path="/" element={<Start />} />
+          <Route path="/list" element={<List />} />
           <Route path="/main" element={<Main />} />
           <Route path="/notice" element={<Notice />} />
           <Route path="/current" element={<Current />} />
@@ -27,7 +29,7 @@ function AppContent() {
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>
       {/* 특정 페이지에서 FloatingButton 숨김 */}
-      {!(location.pathname === "/" || location.pathname === "/current" || location.pathname === "/chat") && <FloatingButton />}
+      {!(location.pathname === "/" || location.pathname === "/list" || location.pathname === "/current" || location.pathname === "/chat") && <FloatingButton />}
     </div>
   );
 }
@@ -83,6 +85,6 @@ export default function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <AppContent />
-    </Router>
+    </Router> 
   );
 }
