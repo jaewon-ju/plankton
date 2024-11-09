@@ -1,104 +1,15 @@
-/* WaggleReport.css */
-
 .wreport-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-}
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
 
-.wreport-category {
-    margin-bottom: 20px;
-    width: 100%;
-    overflow: hidden;
-    /* 상자의 너비를 넘어가는 것을 방지 */
-}
-
-.wreport-category p {
-    margin: 0;
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(255, 73, 28, 1);
-}
-
-.wreport-category-list {
-    display: flex;
-    flex-wrap: wrap;
-    /* 너비를 초과할 때 줄바꿈 */
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.wreport-category-list p {
-    padding: 8px 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    color: #333;
-    transition: all 0.3s ease;
-}
-
-.wreport-category-list p:hover,
-.wreport-category-list p:focus {
-    border-color: rgba(255, 73, 28, 1);
-    /* 선택된 상태 표시 색상 */
-    color: rgba(255, 73, 28, 1);
-}
-
-.wreport-category-list p.selected {
-    border-color: rgba(255, 73, 28, 1);
-    color: rgba(255, 73, 28, 1)f;
-}
-
-.wreport-content {
-    margin-bottom: 20px;
-}
-
-.wreport-content h1 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: rgba(255, 73, 28, 1);
-}
-
-.wreport-content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-}
-
-.wreport-img {
-    margin-bottom: 20px;
-}
-
-.wreport-img h1 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: rgba(255, 73, 28, 1);
-}
-
-.wreport-img input[type="file"] {
-    display: block;
-    width: 100%;
-    padding: 20px;
-    border: 2px dashed #e0e0e0;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 14px;
-    color: #888;
-    cursor: pointer;
-}
-
-button {
-    width: 100%;
+  & button {
+    width: auto;
+    margin-right: 5px;
     padding: 12px;
     font-size: 16px;
     color: #fff;
@@ -107,8 +18,91 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+  }
 }
 
-button:hover {
-    background-color: rgba(255, 73, 28, 1);
+.wreport-category {
+  margin-bottom: 20px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.wreport-category p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(255, 73, 28, 1);
+}
+
+.wreport-category-list {
+  display: flex;
+  margin-top: 10px;
+  gap: 2px;
+}
+
+.wreport-category-list button {
+  padding: 8px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+  background: none;
+  transition: all 0.3s ease;
+}
+
+.wreport-category-list button:focus {
+  border-color: rgba(255, 73, 28, 1);
+  color: rgba(255, 73, 28, 1);
+}
+
+.wreport-category-list .selected {
+  border-color: rgba(255, 73, 28, 1);
+  color: rgba(255, 73, 28, 1);
+}
+
+.wreport-content {
+  margin-bottom: 20px;
+}
+
+.wreport-content h1 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: rgba(255, 73, 28, 1);
+}
+
+.wreport-content input[type="text"],
+.wreport-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.wreport-img {
+  margin-bottom: 20px;
+}
+
+.wreport-img h1 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: rgba(255, 73, 28, 1);
+}
+
+.wreport-img input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
 }
