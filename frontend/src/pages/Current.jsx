@@ -5,8 +5,8 @@ import useGeolocation from "@/hooks/useGeolocation";
 export default function Current() {
   const { currentMyLocation, locationLoading } = useGeolocation();
   return (
-    <div className="main-container">
-      <div className="main-map-box">
+    <div className="current-container">
+      <div className="current-map-box">
         {locationLoading ? (
           <p>Loading location...</p>
         ) : (

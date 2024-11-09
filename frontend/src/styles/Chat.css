@@ -2,15 +2,141 @@
   width: 100%;
   height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
 }
+
+.chat-messages {
+  margin-top: 20px;
+  width: 90%;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.chat-bot-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
+  & p{
+    color: #ff491c;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+.profile-img-container {
+  width: 30px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff491c;
+  border-radius: 50%;
+
+  & img {
+    width: 62%;
+  }
+}
+
+.chat-message-box {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message {
+  width: fit-content;
+  padding: 15px 10px;
+  border-radius: 15px;
+  text-align: start;
+  word-break: keep-all;
+
+  &.bot {
+    margin-left: 38px;
+    background-color: #f2f2f2;
+  }
+  
+  &.user {
+    align-self: flex-end;
+    background-color: #ff491c;
+    color: white;
+  }
+}
+
+.faq-container {
+  margin-left: 38px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  & button {
+    padding: 5px 10px;
+    border: 1px solid rgba(208, 207, 207, 1);
+    background-color: transparent;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #ffe5df;
+      color: #ff491c;
+    }
+  }
+}
+
+
 
 .chat-input-box {
   width: 100%;
   height: 50px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
   position: absolute;
   bottom: 0;
-  background-color: grey;
+  background-color: #f2f2f2;
+
+  & input {
+    width: 75%;
+    height: 33px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 30px;
+    background-color: #d9d9d9;
+    font-size: 0.8rem;
+  }
+
+  & button {
+    width: 15%;
+    height: 33px;
+    background-color: #ffe5df;
+    border: none;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    & svg {
+      font-size: 1.8rem;
+      color: #ff491c;
+    }
+
+    &:hover {
+      background-color: #ff491c;
+
+      & svg{
+        color: white;
+      }
+    }
+  }
 }

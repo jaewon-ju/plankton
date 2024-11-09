@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "@/styles/Chat.css";
 import { chat } from "@/services/chatbotService";
+import { IoIosSend } from "react-icons/io";
 
 export default function Chat() {
   const [inputValue, setInputValue] = useState(""); // 사용자 입력값
@@ -10,27 +11,27 @@ export default function Chat() {
 
   const faqQuestions = [
     {
-      question: "행사 운영 시간은 언제인가요?",
+      question: "행사 운영 시간",
       answer:
         "행사는 오후 5시부터 10시까지 진행됩니다. 불꽃놀이는 오후 8시부터 시작됩니다.",
     },
     {
-      question: "주요 이벤트는 무엇인가요?",
+      question: "주요 이벤트",
       answer:
         "불꽃놀이 외에도 다양한 공연과 먹거리 부스가 운영되며, 포토존에서 사진을 찍으실 수 있습니다.",
     },
     {
-      question: "부스별 안내를 받을 수 있나요?",
+      question: "부스별 안내",
       answer:
         "행사장 내에 안내 부스가 마련되어 있으며, 각 부스의 위치와 정보를 제공해드립니다.",
     },
     {
-      question: "우천 시에도 행사가 진행되나요?",
+      question: "우천 시 행사 진행?",
       answer:
         "우천 시에는 일부 일정이 조정될 수 있으며, 폭우 시에는 행사가 취소될 수 있습니다. 관련 정보는 홈페이지와 SNS에서 확인해주세요.",
     },
     {
-      question: "반려동물 동반이 가능한가요?",
+      question: "반려동물 동반 가능?",
       answer:
         "불꽃놀이 축제는 많은 인파와 큰 소음이 발생하므로 반려동물 동반은 권장하지 않습니다.",
     },
@@ -41,7 +42,7 @@ export default function Chat() {
       {
         role: "bot",
         content:
-          "안녕하세요? 궁금하신 점을 말씀해주세요.\n하단의 자주 묻는 질문을 확인해보세요!",
+          "안녕하세요? 궁금하신 점을 말씀해주세요. 하단의 자주 묻는 질문을 확인해보세요!",
       },
     ]);
   }, []);
@@ -98,36 +99,47 @@ export default function Chat() {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`chat-message ${msg.role === "user" ? "user" : "bot"}`}
+            className="chat-message-box"
           >
-            {msg.content}
+            {msg.role === "bot" &&
+              <div className="chat-bot-profile">
+                <div className="profile-img-container">
+                  <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
+                </div>
+                <p>와글와글</p>
+              </div>
+            }
+            <p className={`chat-message ${msg.role === "user" ? "user" : "bot"}`}>{msg.content}</p>
           </div>
         ))}
+        {showFAQ && (
+          <div className="faq-container">
+            {faqQuestions.map((faq, index) => (
+              <button
+                key={index}
+                className="faq-button"
+                onClick={() => handleFAQClick(faq.answer)}
+              >
+                {faq.question}
+              </button>
+            ))}
+          </div>
+        )}
         {isLoading && (
           <div className="chat-message bot">답변을 기다리는 중...</div>
         )}
+        <div 
+          className="chat-scroll-box"
+          style={{width:"100%", height:"40px"}}
+        />
       </div>
-      {showFAQ && (
-        <div className="faq-container">
-          {faqQuestions.map((faq, index) => (
-            <button
-              key={index}
-              className="faq-button"
-              onClick={() => handleFAQClick(faq.answer)}
-            >
-              {faq.question}
-            </button>
-          ))}
-        </div>
-      )}
       <div className="chat-input-box">
         <input
           placeholder="궁금한 사항을 입력해주세요"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <button onClick={handleSendMessage}><IoIosSend /></button>
       </div>
     </div>
   );
