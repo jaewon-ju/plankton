@@ -10,15 +10,11 @@
     background-color: #fff;
 }
 
-
-
-
-
-
 .wreport-category {
     margin-bottom: 20px;
     width: 100%;
-    overflow: hidden; /* 상자의 너비를 넘어가는 것을 방지 */
+    overflow: hidden;
+    /* 상자의 너비를 넘어가는 것을 방지 */
 }
 
 .wreport-category p {
@@ -30,7 +26,8 @@
 
 .wreport-category-list {
     display: flex;
-    flex-wrap: wrap; /* 너비를 초과할 때 줄바꿈 */
+    flex-wrap: wrap;
+    /* 너비를 초과할 때 줄바꿈 */
     gap: 8px;
     margin-top: 10px;
 }
@@ -47,7 +44,8 @@
 
 .wreport-category-list p:hover,
 .wreport-category-list p:focus {
-    border-color: rgba(255, 73, 28, 1); /* 선택된 상태 표시 색상 */
+    border-color: rgba(255, 73, 28, 1);
+    /* 선택된 상태 표시 색상 */
     color: rgba(255, 73, 28, 1);
 }
 
