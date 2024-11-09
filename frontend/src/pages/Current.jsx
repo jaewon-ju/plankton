@@ -16,16 +16,20 @@ export default function Current() {
   };
 
   return (
-    <div className="main-container">
-      <div className="main-map-box">
+    <div className="current-container">
+      <div className="current-title">
+        <h1>실시간 와글와글</h1>
+        <p>실시간 와글와글 공유를 위한 위치를 알려주세요</p>
+      </div>
+      <div className="current-map-box">
         {locationLoading ? (
-          <p>Loading location...</p>
+          <p className="current-map-loading">Loading location...</p>
         ) : (
           <CurrentMap currentLocation={currentMyLocation} />
         )}
       </div>
 
-      <div className="main-slide-box">
+      <div className="current-slide-box">
         {/* Slide 컴포넌트에 isOpen 상태와 toggle 함수 전달 */}
         <Slide isOpen={isPanelOpen} togglePanel={togglePanel} />
       </div>

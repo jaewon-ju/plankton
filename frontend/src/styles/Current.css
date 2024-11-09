@@ -1,28 +1,52 @@
-.main-container {
+.current-container {
+  width: 100%;
+  height: 100%;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
-  margin-top: 60px; /* 헤더의 높이만큼 조정 */
   position: fixed;
   align-items: center;
-  justify-content: flex-start; /* 상단에서부터 정렬 */
-  padding-bottom: 50px; /* 슬라이딩 패널과 겹치지 않도록 여백 추가 */
+  justify-content: flex-start;
+  gap: 20px;
+  padding-bottom: 50px;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
 }
 
-.main-map-box {
-  width: 90%;
-  height: 550px;
-  margin: 10px;
+.current-title {
+  margin-top: 20px;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background-color: whitesmoke;
-  z-index: 1; /* 슬라이딩 패널 아래에 위치하도록 설정 */
+  gap: 20px;
+  & h1 {
+    font-size: 1.1rem;
+  }
+
+  & p {
+    font-size: 0.9rem;
+  }
 }
 
-.main-slide-box {
+.current-map-box {
+  width: 90%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: whitesmoke;
+  z-index: 1; /* 슬라이딩 패널 아래에 위치하도록 설정 */
+
+  & .current-map-loading {
+    text-align: center;
+  }
+}
+
+.current-slide-box {
   width: 90%;
   height: 100%;
   bottom: 0; /* 하단 맞춤 */
@@ -33,9 +57,4 @@
   background-color: whitesmoke;
   overflow: hidden;
   z-index: 2; /* 슬라이딩 패널이 지도 위로 올라오도록 설정 */
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
 }

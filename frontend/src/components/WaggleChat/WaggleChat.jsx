@@ -12,7 +12,7 @@ export default function WaggleChat() {
         {
           id: prevMessages.length + 1,
           text: newMessage,
-          time: "오후 9:00",
+          time: "오후 12:45",
           type: "sent",
         },
       ]);
@@ -29,11 +29,11 @@ export default function WaggleChat() {
   return (
     <div className="wchat-container">
       <div className="wchat-messages">
+        <h1>실시간 채팅에 참여하였습니다.</h1>
         {messages.map((message) => (
           <div key={message.id} className={`wchat-message ${message.type}`}>
-            {message.image && <img src={message.image} alt="첨부 이미지" className="wchat-message-image" />}
-            <p className="wchat-message-text">{message.text}</p>
             <span className="wchat-message-time">{message.time}</span>
+            <p className="wchat-message-text">{message.text}</p>
           </div>
         ))}
       </div>
