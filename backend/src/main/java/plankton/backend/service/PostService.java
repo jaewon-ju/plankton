@@ -9,6 +9,8 @@ import plankton.backend.repository.EventRepository;
 import plankton.backend.repository.PostRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -51,4 +53,19 @@ public class PostService {
                         .build())
                 .orElseThrow(() -> new IllegalArgumentException("Post with id " + id + " not found"));
     }
+
+    public List<PostDTO> getAllPosts() {
+        return postRepository.findAll().stream()
+                .map(post -> PostDTO.builder()
+                        .postId(post.getPostId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .image(post.getImage())
+                        .level(post.getLevel())
+                        .createdAt(post.getCreatedAt())
+                        .eventId(post.getEvent().getEventId())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 }
