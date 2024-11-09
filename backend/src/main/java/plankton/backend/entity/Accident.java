@@ -24,7 +24,8 @@ public class Accident {
 
     private int category; // 0 또는 1
 
-    private String img;
+    @Lob
+    private byte[] img;;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
@@ -32,7 +33,7 @@ public class Accident {
 
     @Builder
     public Accident(Long accidentId, double longitude, double latitude, String title,
-                    String content, int category, String img, Event event) {
+                    String content, int category, byte[] img, Event event) {
         this.accidentId = accidentId;
         this.longitude = longitude;
         this.latitude = latitude;

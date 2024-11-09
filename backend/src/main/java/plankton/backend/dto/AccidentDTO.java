@@ -12,12 +12,12 @@ public class AccidentDTO {
     private String title;
     private String content;
     private int category;
-    private String img;
+    private byte[] img; // 이미지 데이터를 바이트 배열로 저장
     private Long eventId;
 
     @Builder
     public AccidentDTO(Long accidentId, double longitude, double latitude, String title,
-                       String content, int category, String img, Long eventId) {
+                       String content, int category, byte[] img, Long eventId) {
         this.accidentId = accidentId;
         this.longitude = longitude;
         this.latitude = latitude;
