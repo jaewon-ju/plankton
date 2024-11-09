@@ -17,21 +17,26 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > key.pem
           chmod 600 key.pem
 
-      - name: Copy files to EC2
+      - name: Create required directories on EC2
         run: |
-          scp -o StrictHostKeyChecking=no -i key.pem -r * ubuntu@${{ secrets.EC2_IP }}:/home/ubuntu/app
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_IP }} "mkdir -p /home/ubuntu/app/backend/src/main/resources"
 
-      - name: Copy prod.yml to EC2
+      - name: Copy application-prod.yml to EC2
         run: |
-          echo "${{ secrets.YML_PROD }}" > prod.yml
-          scp -o StrictHostKeyChecking=no -i key.pem prod.yml ubuntu@${{ secrets.EC2_IP }}:/home/ubuntu/app
+          echo "${{ secrets.YML_PROD }}" > application-prod.yml
+          scp -o StrictHostKeyChecking=no -i key.pem application-prod.yml ubuntu@${{ secrets.EC2_IP }}:/home/ubuntu/app/backend/src/main/resources/application-prod.yml
+
+      - name: Copy docker-compose.yml and project files to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -i key.pem -r backend frontend README.md ubuntu@${{ secrets.EC2_IP }}:/home/ubuntu/app
 
       - name: Deploy using Docker Compose
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/app && docker-compose -f docker-compose.yml -f prod.yml down && docker-compose -f docker-compose.yml -f prod.yml up -d"
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/app/backend && docker-compose down && docker-compose up -d"
 
       - name: Clean up SSH Key
         run: rm -f key.pem
+
         
   frontend:
     runs-on: ubuntu-latest
