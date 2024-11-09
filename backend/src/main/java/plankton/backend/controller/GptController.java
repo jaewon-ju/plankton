@@ -14,11 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
-import plankton.backend.response.SuccessResponse;
+import plankton.backend.dto.response.SuccessResponse;
 import plankton.backend.service.GptService;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 @RestController
@@ -30,7 +29,7 @@ public class GptController {
     private final GptService gptService;
 
     int count = 0;
-    @GetMapping("/")
+    @GetMapping("")
     @Transactional
     @Operation(
             summary = "get Ai Response from Backend Server",
