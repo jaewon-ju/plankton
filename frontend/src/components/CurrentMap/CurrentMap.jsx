@@ -1,6 +1,7 @@
 import {
   Container as MapDiv,
   NaverMap,
+  Marker,
   Polygon,
   useNavermaps,
 } from "react-naver-maps";
@@ -12,46 +13,38 @@ export default function CurrentMap({ currentLocation }) {
   const navermaps = useNavermaps();
   const [polygons, setPolygons] = useState([]);
 
-  // 각 공원의 폴리곤 좌표 설정
+  // 서버에서 폴리곤 데이터를 가져와서 변환하여 지도에 표시
   useEffect(() => {
-    const parkPolygons = [
-      [
-        new navermaps.LatLng(37.5197849, 126.917224),
-        new navermaps.LatLng(37.515335, 126.92649),
-        new navermaps.LatLng(37.5169011, 126.92810239),
-        new navermaps.LatLng(37.521247, 126.917224),
-      ],
-      [
-        new navermaps.LatLng(37.5225771, 126.9381753),
-        new navermaps.LatLng(37.5178799, 126.9420377),
-        new navermaps.LatLng(37.5182203, 126.9453851),
-        new navermaps.LatLng(37.5231898, 126.9406644),
-      ],
-      [
-        new navermaps.LatLng(37.524645, 126.91852),
-        new navermaps.LatLng(37.525, 126.92),
-        new navermaps.LatLng(37.52139, 126.919706),
-        new navermaps.LatLng(37.524, 126.925),
-        new navermaps.LatLng(37.53, 126.926),
-      ],
-      [
-        new navermaps.LatLng(37.5306094, 126.9257299),
-        new navermaps.LatLng(37.5253, 126.934313),
-        new navermaps.LatLng(37.5265253, 126.9365446),
-        new navermaps.LatLng(37.5318345, 126.9284765),
-      ],
-      [
-        new navermaps.LatLng(37.5314261, 126.9217817),
-        new navermaps.LatLng(37.5342848, 126.9229833),
-        new navermaps.LatLng(37.5354419, 126.9123403),
-        new navermaps.LatLng(37.5337403, 126.9127695),
-      ],
-    ];
+    const fetchPolygons = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/info`, {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          // 응답 데이터를 navermaps.LatLng 객체 배열로 변환
+          const parsedPolygons = data.map((polygon) =>
+            polygon.map((point) => new navermaps.LatLng(point.lat, point.lng))
+          );
+          setPolygons(parsedPolygons);
+        } else {
+          console.error(
+            "폴리곤 데이터를 가져오는 데 실패했습니다:",
+            response.status
+          );
+        }
+      } catch (error) {
+        console.error("폴리곤 데이터 가져오기 오류:", error);
+      }
+    };
 
-    setPolygons(parkPolygons);
+    fetchPolygons();
   }, [navermaps]);
 
-  // 색상 설정 배열
+  // 폴리곤의 색상 배열
   const fillColors = ["#ff000050", "#ffa50050", "#98fb9850"]; // 빨강, 주황, 연두
   const strokeColors = ["#ff0000", "#ffa500", "#98fb98"];
 
@@ -60,15 +53,24 @@ export default function CurrentMap({ currentLocation }) {
       {/* 범례 추가 */}
       <div className="legend">
         <div className="legend-item">
-          <span className="legend-color" style={{ backgroundColor: "#ff0000" }}></span>
+          <span
+            className="legend-color"
+            style={{ backgroundColor: "#ff0000" }}
+          ></span>
           위험
         </div>
         <div className="legend-item">
-          <span className="legend-color" style={{ backgroundColor: "#ffa500" }}></span>
+          <span
+            className="legend-color"
+            style={{ backgroundColor: "#ffa500" }}
+          ></span>
           주의
         </div>
         <div className="legend-item">
-          <span className="legend-color" style={{ backgroundColor: "#98fb98" }}></span>
+          <span
+            className="legend-color"
+            style={{ backgroundColor: "#98fb98" }}
+          ></span>
           안전
         </div>
       </div>
@@ -79,6 +81,7 @@ export default function CurrentMap({ currentLocation }) {
           position: navermaps?.Position?.TOP_RIGHT,
         }}
         defaultCenter={new navermaps.LatLng(37.52389, 126.92667)}
+        center={new navermaps.LatLng(currentLocation.lat, currentLocation.lng)}
         minZoom={14}
         maxBounds={
           new navermaps.LatLngBounds(
@@ -87,6 +90,16 @@ export default function CurrentMap({ currentLocation }) {
           )
         }
       >
+        {/* 현재 위치에 마커 추가 */}
+        <Marker
+          position={
+            new navermaps.LatLng(currentLocation.lat, currentLocation.lng)
+          }
+          title="현재 위치"
+          animation={navermaps.Animation.BOUNCE}
+        />
+
+        {/* 폴리곤 표시 */}
         {polygons.map((path, index) => (
           <Polygon
             key={`polygon-${index}`}
