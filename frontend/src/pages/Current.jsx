@@ -9,7 +9,7 @@ import React, { useState } from "react";
 
 export default function Current() {
   const { currentMyLocation, locationLoading } = useGeolocation();
-  const [isPanelOpen, setIsPanelOpen] = useState(true); // 패널이 기본으로 열리도록 설정
+  const [isPanelOpen, setIsPanelOpen] = useState(false); // 패널이 기본으로 열리도록 설정
 
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);

@@ -1,13 +1,3 @@
-{/*import React from "react";
-import "./WaggleChat.css";
-
-export default function WaggleChat() {
-    return (
-        <div className="wchat-container">
-            
-        </div>
-    )
-} */}
 import React, { useState } from "react";
 import "./WaggleChat.css";
 
@@ -32,26 +22,26 @@ export default function WaggleChat() {
 
   return (
     <div className="wchat-container">
-      <div className="messages">
+      <div className="wchat-messages">
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`message ${message.type}`}
+            className={`wchat-message ${message.type}`}
           >
-            {message.image && <img src={message.image} alt="첨부 이미지" className="message-image" />}
-            <p className="message-text">{message.text}</p>
-            <span className="message-time">{message.time}</span>
+            {message.image && <img src={message.image} alt="첨부 이미지" className="wchat-message-image" />}
+            <p className="wchat-message-text">{message.text}</p>
+            <span className="wchat-message-time">{message.time}</span>
           </div>
         ))}
       </div>
-      <div className="input-container">
+      <div className="wchat-input-container">
         <input
           type="text"
           placeholder="채팅을 입력해 보세요"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <button onClick={handleSend} className="send-button">🚀</button>
+        <button onClick={handleSend} className="wchat-send-button">🚀</button>
       </div>
     </div>
   );
