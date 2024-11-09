@@ -1,15 +1,14 @@
 import "@/App.css";
 // import Pa1 from "@/pages/Pa1";
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Start from "@/pages/start";
 
 export default function App() {
   return (
     <div className="app-container">
-      <h1>Plankton</h1>
       <Router>
         <Routes>
-          {/* <Route path="/" element={<Start />} />
-        <Route path="*" element={<Error />} /> */}
+          <Route path="/" element={<Start />} />
         </Routes>
       </Router>
     </div>
