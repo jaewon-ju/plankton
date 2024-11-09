@@ -58,7 +58,7 @@ public class InfoController {
         return ResponseEntity.ok().body(temp);
     }
 
-    @PostMapping
+    @GetMapping
     @Transactional
     @Operation(
             summary = "post information to server",

@@ -55,5 +55,5 @@ springdoc:
   show-actuator: true
 
 image:
-  file-path: src/main/resources/static/img
+  file-path: http://localhost:8080/
 
