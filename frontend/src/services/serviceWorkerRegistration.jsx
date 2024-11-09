@@ -1,21 +1,45 @@
-// 구독 정보 생성 함수
-
+// services/serviceWorkerRegistration.js
 async function registerPushSubscription() {
   const registration = await navigator.serviceWorker.ready;
 
-  const publicVapidKey = "MYPUBLICKEY";
+  const publicVapidKey =
+    "BB4P3QAB6tIVb0DBufMf3YQXIpZqPpT30l5YHsevtR09AUvFDQ9cOgIADZa_it1NUAjJeFAx6lRlXhZvPhr42Zo";
   const subscription = await registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
   });
 
-  await fetch("/api/save-subscription", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(subscription),
-  });
+  const formattedSubscription = {
+    endpoint: subscription.endpoint,
+    expirationTime: subscription.expirationTime,
+    keys: {
+      p256dh: subscription.keys.p256dh,
+      auth: subscription.keys.auth,
+    },
+  };
 
-  console.log("User is subscribed.");
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/posts/save-subscription`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formattedSubscription),
+      }
+    );
+
+    if (!response.ok) {
+      console.error(
+        "Failed to send subscription data:",
+        response.status,
+        response.statusText
+      );
+    } else {
+      console.log("Subscription data sent successfully.");
+    }
+  } catch (error) {
+    console.error("Error sending subscription data:", error);
+  }
 }
 
 function urlBase64ToUint8Array(base64String) {
@@ -26,14 +50,3 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export default registerPushSubscription;
-
-// subscription 예시
-
-// {
-//   "endpoint": "https://fcm.googleapis.com/fcm/send/unique-id",
-//   "expirationTime": null,
-//   "keys": {
-//     "p256dh": "generated_key_p256dh",
-//     "auth": "generated_auth_key"
-//   }
-// }
