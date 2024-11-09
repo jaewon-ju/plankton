@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: hidden;
+  margin-top: 60px;
 }
 
 .chat-messages {

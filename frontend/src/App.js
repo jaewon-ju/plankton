@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "@/App.css";
 import Main from "@/pages/Main";
 import List from "@/pages/List";
@@ -8,25 +8,27 @@ import Chat from "@/pages/Chat";
 import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import Notice from "@/pages/Notice";
 import FloatingButton from "@/components/FloatingButton/FloatingButton";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "@/components/Header/Header"; // Header 컴포넌트 임포트
 
 function AppContent() {
   const location = useLocation();
+
+  // 헤더가 필요한 페이지인지 확인
+  const showHeader = ["/main", "/notice", "/current", "/chat"].includes(location.pathname);
+
   return (
     <div className="app-container">
+      {showHeader && <Header />} {/* 특정 경로에서만 헤더 표시 */}
       <Routes>
         <Route path="/" element={<List />} />
         <Route path="/main" element={<Main />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="/current" element={<Current />} />
         <Route path="/chat" element={<Chat />} />
+        {/* <Route path="*" element={<Error />} /> */}
       </Routes>
-      {!(
-        location.pathname === "/" ||
-        location.pathname === "/current" ||
-        location.pathname === "/chat"
-      ) && <FloatingButton />}
+      {/* 특정 페이지에서 FloatingButton 숨김 */}
+      {!(location.pathname === "/" || location.pathname === "/current" || location.pathname === "/chat") && <FloatingButton />}
     </div>
   );
 }
