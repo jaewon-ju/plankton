@@ -23,6 +23,7 @@
 .main-slide-box {
   width: 90%;
   height: 100%;
+  bottom: 0; /* 하단 맞춤 */
   position: relative;
   display: flex;
   justify-content: center;

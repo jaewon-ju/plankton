@@ -18,12 +18,12 @@
   transform: translateY(0); /* 패널이 위로 올라오도록 설정 */
   align-items: center;
   justify-content: center;
+  background-color: white;
 }
 
 .sliding-panel {
   padding: 20px;
   height: 100%;
-  overflow-y: auto;
 }
 
 .drag-handle {
@@ -33,4 +33,42 @@
   border-radius: 3px;
   margin: 10px auto;
   cursor: pointer;
+}
+
+.report-panel {
+  padding: 20px;
+  height: 100%;
+}
+
+/*상단 바 선택*/
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tab {
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.tab span {
+  margin-right: 5px;
+}
+
+.tab.active {
+  color: #ff4500; /* 사건신고 탭 색상 */
+  font-weight: bold;
+}
+
+.divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 10px 0;
 }

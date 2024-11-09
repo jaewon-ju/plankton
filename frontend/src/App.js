@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 import "@/App.css";
 import Main from "@/pages/Main";
 import List from "@/pages/List";
@@ -8,6 +9,7 @@ import Chat from "@/pages/Chat";
 import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import Notice from "@/pages/Notice";
 import FloatingButton from "@/components/FloatingButton/FloatingButton";
+
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -21,6 +23,7 @@ function AppContent() {
         <Route path="/notice" element={<Notice />} />
         <Route path="/current" element={<Current />} />
         <Route path="/chat" element={<Chat />} />
+
         {/* <Route path="*" element={<Error />} /> */}
       </Routes>
       {!(location.pathname === "/" || location.pathname === "/current" || location.pathname === "/chat") && <FloatingButton />}

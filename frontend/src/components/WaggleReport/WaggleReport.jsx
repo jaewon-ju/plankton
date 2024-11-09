@@ -3,6 +3,8 @@ import "./WaggleReport.css";
 
 export default function WaggleReport() {
 
+    return(
+
     <div className="wreport-container">
         <div className="wreport-category">
             <p>사건 유형</p>
@@ -26,5 +28,5 @@ export default function WaggleReport() {
         </div>
 
         <button>접수하기</button>
-    </div>
+    </div>)
 }
