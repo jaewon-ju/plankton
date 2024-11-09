@@ -2,31 +2,30 @@ import React, { useEffect } from "react";
 import "@/App.css";
 import Main from "@/pages/Main";
 import registerPushSubscription from "@/services/serviceWorkerRegistration";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import Notice from "@/pages/Notice";
+import FloatingButton from "@/components/FloatingButton/FloatingButton";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function AppContent() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
-  const handleSpot = () => {
-    navigate("/main");
-  };
+  // const handleSpot = () => {
+  //   navigate("/main");
+  // };
 
   return (
     <div className="app-container">
-      {location.pathname === "/" && (
+      {/* {location.pathname === "/" && (
         <button onClick={handleSpot}>go to main</button>
-      )}
+      )} */}
       <Routes>
         <Route path="/main" element={<Main />} />
+        <Route path="/notice" element={<Notice />} />
         {/* <Route path="*" element={<Error />} /> */}
       </Routes>
+      <FloatingButton />
     </div>
   );
 }
