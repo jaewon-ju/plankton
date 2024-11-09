@@ -58,31 +58,21 @@ public class PostController {
         return ResponseEntity.ok(postDto);
     }
 
-    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/")
     @Transactional
-    @Operation(summary = "Create a new Post with image", responses = {
+    @Operation(summary = "Create a new Post", responses = {
             @ApiResponse(responseCode = "201", description = "Post created successfully",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SuccessResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public ResponseEntity<?> createPost(@Valid @ModelAttribute PostRequest postRequest,
-                                        @RequestParam("image") MultipartFile image) throws IOException {
-
-        // 이미지 처리
-        String imageName = null;
-        if (!image.isEmpty()) {
-            imageName = image.getOriginalFilename();
-            Path imagePath = Paths.get("src/main/resources/static/" + imageName);
-            Files.createDirectories(imagePath.getParent());
-            image.transferTo(imagePath.toFile());
-        }
+    public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) throws IOException {
 
         // Post 생성
         PostDTO postDto = PostDTO.builder()
                 .title(postRequest.getTitle())
                 .content(postRequest.getContent())
-                .image(imageName)
+                .image("No Image")
                 .level(Integer.parseInt(postRequest.getLevel()))
                 .createdAt(LocalDateTime.now())
                 .eventId(Long.valueOf(postRequest.getEventId()))
