@@ -14,7 +14,7 @@
 
 ## 🚀 개발 기간
 
-- 2024.07 - 2024.08
+- 2024.11
   <br></br>
 
 ## 👨‍👩‍👧‍👦 팀원 구성
@@ -53,7 +53,7 @@ cd plankton
 cd frontend
 ```
 
-### frontend 디렉토리 최상단에 `.env` 파일 생성
+### frontend 디렉토리 최상단에 `.env.local` 파일 생성
 
 ```
 REACT_APP_BASE_URL : API 서버의 기본 URL을 설정합니다
@@ -66,17 +66,27 @@ npm install
 npm start
 ```
 
+## 🎥 Backend local
+
+### 프로젝트 가져오기
+
+```
+git clone https://github.com/YenaLey/plankton.git
+cd plankton
+cd backend
+```
+
 ## ⏳ CI/CD Pipeline
 
 이 프로젝트는 GitHub Actions를 사용하여 CI/CD 파이프라인을 자동화합니다. 파이프라인은 백엔드와 프론트엔드로 나누어져 있습니다.
+
+### Frontend
+
+1. **Build**: Node.js와 npm을 사용하여 프론트엔드를 빌드합니다.
+2. **Deploy**: 빌드된 프론트엔드를 GitHub Pages에 배포합니다.
 
 ### Backend
 
 1. **Build**: Gradle을 사용하여 백엔드를 빌드합니다.
 2. **Test**: 빌드 후 Gradle을 사용하여 백엔드 테스트를 실행합니다.
 3. **Deploy**: Docker Compose를 사용하여 백엔드 애플리케이션을 빌드하고 실행합니다.
-
-### Frontend
-
-1. **Build**: Node.js와 npm을 사용하여 프론트엔드를 빌드합니다.
-2. **Deploy**: 빌드된 프론트엔드를 GitHub Pages에 배포합니다.
