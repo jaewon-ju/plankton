@@ -51,7 +51,6 @@ export default function Main() {
 
   return (
     <div className="main-container">
-      
       {isLoading ? (
         <div className="main-loading">
           <p>데이터를 불러오는 중입니다...</p>
@@ -66,16 +65,18 @@ export default function Main() {
               <MainMap currentLocation={currentMyLocation} />
             )}
           </div>
-          
+
           <div className="main-jam">
             <h1>{hotspotName} 실시간 인구 혼잡도</h1>
             <div className="main-jam-content">
               <p>{info.AREA_CONGEST_LVL}</p>
               <FaRegFaceSurprise />
-              <p>현재 실시간 인구: {info.AREA_PPLTN_MIN}~{info.AREA_PPLTN_MAX}명</p>
+              <p>
+                현재 실시간 인구: {info.AREA_PPLTN_MIN}~{info.AREA_PPLTN_MAX}명
+              </p>
               <ul>
                 {info.AREA_CONGEST_MSG &&
-                  info.AREA_CONGEST_MSG.split('.').map((sentence, index) => {
+                  info.AREA_CONGEST_MSG.split(".").map((sentence, index) => {
                     const trimmedSentence = sentence.trim();
                     if (trimmedSentence)
                       return <li key={index}>{trimmedSentence}.</li>;

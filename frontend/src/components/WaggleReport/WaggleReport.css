@@ -1,11 +1,24 @@
 .wreport-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+
+  & button {
+    width: auto;
+    margin-right: 5px;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 }
 
 .wreport-category {
@@ -15,10 +28,10 @@
 }
 
 .wreport-category p {
-    margin: 0;
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(255, 73, 28, 1);
+  margin: 0;
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(255, 73, 28, 1);
 }
 
 .wreport-category-list {
@@ -50,34 +63,37 @@
 }
 
 .wreport-content {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .wreport-content h1 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: rgba(255, 73, 28, 1);
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: rgba(255, 73, 28, 1);
 }
 
-.wreport-content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
+.wreport-content input[type="text"],
+.wreport-content textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+  margin-bottom: 10px;
 }
 
 .wreport-img {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .wreport-img h1 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: rgba(255, 73, 28, 1);
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: rgba(255, 73, 28, 1);
 }
 
 .wreport-img input[type="file"] {

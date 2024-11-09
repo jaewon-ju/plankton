@@ -49,21 +49,21 @@ export default function Notice() {
           ) : (
             notices.map((element, index) => (
               <div className="notice-box" key={index}>
-                <p style={{ color: "red" }}>
+                {/* <p style={{ color: "red" }}>
                   {formatTimestamp(element.timestamp)}
-                </p>
+                </p> */}
                 <div
                   className="notice-box-content"
                   style={{ borderLeftColor: "red" }}
                 >
                   <h1 style={{ color: "red" }}>{element.title}</h1>
                   <h4>{element.content}</h4>
-                  {element.image && (
+                  {/* {element.image && (
                     <img
                       src={`${process.env.REACT_APP_BASE_URL}/img/${element.image}`}
                       alt={`notice-${index}`}
                     />
-                  )}
+                  )} */}
                 </div>
               </div>
             ))
