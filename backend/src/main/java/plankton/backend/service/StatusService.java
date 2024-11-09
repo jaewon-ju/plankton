@@ -33,7 +33,6 @@ public class StatusService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-
     }
 
 }
