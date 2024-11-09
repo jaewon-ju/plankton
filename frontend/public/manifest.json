@@ -4,8 +4,8 @@
   "description": "행사용 안전관리 서비스입니다.",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#BBE9FF",
-  "background_color": "#BBE9FF",
+  "theme_color": "#FF491C",
+  "background_color": "#FF491C",
   "orientation": "portrait-primary",
   "icons": [
     {

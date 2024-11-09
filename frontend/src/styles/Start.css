@@ -1,0 +1,37 @@
+.start {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-container {
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background-color: #ff491c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & h1 {
+        color: white;
+    }
+}
+
+.start-logo {
+    width: 50px;
+    aspect-ratio: 1/1;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+        width: 50%;
+    }
+
+
+}

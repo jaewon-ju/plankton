@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "@/App.css";
+import Start from "@/pages/Start";
 import Main from "@/pages/Main";
 import List from "@/pages/List";
 import Current from "@/pages/Current";
@@ -8,27 +9,27 @@ import Chat from "@/pages/Chat";
 import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import Notice from "@/pages/Notice";
 import FloatingButton from "@/components/FloatingButton/FloatingButton";
-import Header from "@/components/Header/Header"; // Header 컴포넌트 임포트
+import Header from "@/components/Header/Header";
 
 function AppContent() {
   const location = useLocation();
 
-  // 헤더가 필요한 페이지인지 확인
   const showHeader = ["/main", "/notice", "/current", "/chat"].includes(location.pathname);
 
   return (
     <div className="app-container">
-      {showHeader && <Header />} {/* 특정 경로에서만 헤더 표시 */}
-      <Routes>
-        <Route path="/" element={<List />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/notice" element={<Notice />} />
-        <Route path="/current" element={<Current />} />
-        <Route path="/chat" element={<Chat />} />
-        {/* <Route path="*" element={<Error />} /> */}
-      </Routes>
+      {showHeader && <Header />}
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/notice" element={<Notice />} />
+          <Route path="/current" element={<Current />} />
+          <Route path="/chat" element={<Chat />} />
+          {/* <Route path="*" element={<Error />} /> */}
+        </Routes>
       {/* 특정 페이지에서 FloatingButton 숨김 */}
-      {!(location.pathname === "/" || location.pathname === "/current" || location.pathname === "/chat") && <FloatingButton />}
+      {!(location.pathname === "/" || location.pathname === "/list" || location.pathname === "/current" || location.pathname === "/chat") && <FloatingButton />}
     </div>
   );
 }
@@ -84,6 +85,6 @@ export default function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <AppContent />
-    </Router>
+    </Router> 
   );
 }

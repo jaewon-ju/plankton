@@ -22,9 +22,9 @@
 }
 
 .wreport-category {
-  margin-bottom: 20px;
-  width: 100%;
-  overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .wreport-category p {
@@ -35,30 +35,31 @@
 }
 
 .wreport-category-list {
-  display: flex;
-  margin-top: 10px;
-  gap: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
 }
 
 .wreport-category-list button {
-  padding: 8px 8px;
-  border: 1px solid #e0e0e0;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
-  background: none;
-  transition: all 0.3s ease;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    transition: all 0.3s ease;
 }
 
+.wreport-category-list button:hover,
 .wreport-category-list button:focus {
-  border-color: rgba(255, 73, 28, 1);
-  color: rgba(255, 73, 28, 1);
+    border-color: rgba(255, 73, 28, 1);
+    color: rgba(255, 73, 28, 1);
 }
 
-.wreport-category-list .selected {
-  border-color: rgba(255, 73, 28, 1);
-  color: rgba(255, 73, 28, 1);
+.wreport-category-list button.selected {
+    background-color: rgba(255, 73, 28, 1);
+    color: white;
 }
 
 .wreport-content {
@@ -96,13 +97,30 @@
 }
 
 .wreport-img input[type="file"] {
-  display: block;
-  width: 100%;
-  padding: 20px;
-  border: 2px dashed #e0e0e0;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 14px;
-  color: #888;
-  cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 20px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    cursor: pointer;
+}
+
+
+.wreport-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+        background-color: rgba(255, 73, 28, 1);
+    }
 }
