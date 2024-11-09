@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "@/App.css";
 import Main from "@/pages/Main";
+import Current from "@/pages/Current";
 import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import Notice from "@/pages/Notice";
 import FloatingButton from "@/components/FloatingButton/FloatingButton";
@@ -23,6 +24,7 @@ function AppContent() {
       <Routes>
         <Route path="/main" element={<Main />} />
         <Route path="/notice" element={<Notice />} />
+        <Route path="/current" element={<Current />} />
         {/* <Route path="*" element={<Error />} /> */}
       </Routes>
       <FloatingButton />

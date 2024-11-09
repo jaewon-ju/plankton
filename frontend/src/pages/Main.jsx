@@ -12,15 +12,24 @@ export default function Main() {
     const { status, data } = await getCongestionData(hotspotName);
 
     if (status === 200 && data) {
-      console.log(data);
+      const congestionInfo = data.CITYDATA?.LIVE_PPLIN_STTS[0];
+
+      if (congestionInfo) {
+        console.log("Congestion Level:", congestionInfo.AREA_CONGEST_LVL);
+        console.log("Congestion Message:", congestionInfo.AREA_CONGEST_MSG);
+        console.log("Population Min:", congestionInfo.AREA_PPLTN_MIN);
+        console.log("Population Max:", congestionInfo.AREA_PPLTN_MAX);
+      } else {
+        console.log("No congestion info available.");
+      }
     } else {
-      console.log(status);
+      console.log("Error status:", status);
     }
   };
 
   useEffect(() => {
     fetchCongestionData();
-  });
+  }, []);
 
   return (
     <div className="main-container">

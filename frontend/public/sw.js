@@ -1,15 +1,12 @@
-// install event
 self.addEventListener("install", (e) => {
   console.log("[Service Worker] Installed");
 });
 
-// activate event
 self.addEventListener("activate", (e) => {
   console.log("[Service Worker] Activated");
   return self.clients.claim();
 });
 
-// fetch event
 self.addEventListener("fetch", (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {
@@ -18,7 +15,7 @@ self.addEventListener("fetch", (e) => {
   );
 });
 
-// push event - 백엔드에서 받은 공지사항을 푸시 알림으로 표시
+// push 이벤트 - 푸시 알림 표시
 self.addEventListener("push", (event) => {
   console.log("Push event received");
   if (event.data && Notification.permission === "granted") {
@@ -28,11 +25,10 @@ self.addEventListener("push", (event) => {
     const options = {
       body: data.content,
       data: {
-        url: data.url, // 클릭 시 이동할 URL
+        url: data.url,
       },
     };
 
-    // 알림 표시 시도
     event.waitUntil(
       self.registration
         .showNotification(data.title, options)
@@ -44,7 +40,6 @@ self.addEventListener("push", (event) => {
   }
 });
 
-// notificationclick event - 알림 클릭 시 URL 이동
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   event.waitUntil(
