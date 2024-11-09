@@ -45,7 +45,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("")
+    @GetMapping
     @Transactional
     @Operation(summary = "Get All Posts", responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
