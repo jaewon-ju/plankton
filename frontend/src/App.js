@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "@/App.css";
 import Main from "@/pages/Main";
+import registerPushSubscription from "@/services/serviceWorkerRegistration";
 import {
   BrowserRouter as Router,
   Route,
@@ -44,7 +45,7 @@ export default function App() {
           if (Notification.permission === "default") {
             const permission = await Notification.requestPermission();
             if (permission === "granted") {
-              console.log("Notification permission granted.");
+              registerPushSubscription(); // 구독 생성 호출
             } else if (permission === "denied") {
               console.warn("Notification permission denied.");
               alert(
