@@ -37,9 +37,9 @@ public class PostController {
     private final PostService postService;
     private List<Subscription> subscriptions = new ArrayList<>(); // 메모리에 구독 정보 저장
 
-    private String publicKey = "MYPUBLICKEY"; // ToDo
+    private String publicKey = "BB4P3QAB6tIVb0DBufMf3YQXIpZqPpT30l5YHsevtR09AUvFDQ9cOgIADZa_it1NUAjJeFAx6lRlXhZvPhr42Zo"; // ToDo
 
-    private String privateKey = "MYPRIVATEKEY"; //ToDo
+    private String privateKey = "aWRI92zsdPlS5cRkgMwQ63PNzEFSxP3m2EMJRQCEE8Y"; //ToDo
 
     public PostController(PostService postService) {
         this.postService = postService;
