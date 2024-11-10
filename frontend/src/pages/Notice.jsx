@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "@/styles/Notice.css";
+import "@/styles/notice.css";
 
 export default function Notice() {
   const [notices, setNotices] = useState([]);
