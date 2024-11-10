@@ -17,6 +17,10 @@
     align-items: center;
     & h1 {
         color: white;
+        &:nth-child(3) {
+            position: relative;
+            bottom: 7px;
+        }
     }
 }
 

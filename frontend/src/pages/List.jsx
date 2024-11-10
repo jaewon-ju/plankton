@@ -31,24 +31,29 @@ export default function List() {
           <img src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
         </div>
         <h1>
-          와글와글에 오신 걸 환영해요! <br />
-          내 주변 축제에 지금 입장하세요
+          와글와글에 오신 걸 환영해요! <br />내 주변 축제에 지금 입장하세요
         </h1>
       </div>
       <div className="list-list">
         {dummyData.map((item, index) => (
           <div
             key={index}
-            className={`list-block ${selectedItem === item.position ? "selected" : ""}`}
+            className={`list-block ${
+              selectedItem === item.position ? "selected" : ""
+            }`}
             role="button"
             tabIndex={0}
             onClick={() => handleClick(item.position)}
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") handleClick(item.position);
+              if (e.key === "Enter" || e.key === " ")
+                handleClick(item.position);
             }}
           >
             <h2>{item.name}</h2>
-            <p className="list-position"><MdOutlinePlace />&nbsp;{item.position}</p>
+            <p className="list-position">
+              <MdOutlinePlace />
+              &nbsp;{item.position}
+            </p>
             <div className="list-distance">
               <p>현재 내 위치에서</p>
               <hr />
@@ -59,7 +64,7 @@ export default function List() {
       </div>
 
       <button
-        className={`list-enter ${selectedItem === null ? '' : 'yes'}`}
+        className={`list-enter ${selectedItem === null ? "" : "yes"}`}
         onClick={() => {
           if (selectedItem) {
             navigate("/main", { state: { position: selectedItem } });
