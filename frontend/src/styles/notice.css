@@ -1,19 +1,5 @@
-.notice {
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 70px;
-    font-family: "Roboto";
-}
-
 .notice-container {
     width: 100%;
-    max-width: 400px;
     height: 100vh;
     display: flex;
     flex-direction: column;
