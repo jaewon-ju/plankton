@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import "./CurrentMap.css";
 
 export default function CurrentMap({ currentLocation }) {
+  console.log(currentLocation);
   const navermaps = useNavermaps();
   const [polygons, setPolygons] = useState([]);
 

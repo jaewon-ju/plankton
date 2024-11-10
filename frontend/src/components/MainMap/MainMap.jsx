@@ -25,7 +25,7 @@ export default function MainMap({ currentLocation }) {
         defaultCenter={
           new navermaps.LatLng(currentLocation.lat, currentLocation.lng)
         }
-        defaultZoom={17}
+        defaultZoom={13}
         onZoomChanged={handleZoomChanged}
       >
         {/* 현재 위치에 마커 표시 */}
