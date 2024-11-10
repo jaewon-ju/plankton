@@ -13,11 +13,6 @@ export default function List() {
       position: "여의도한강공원",
       distance: "2km",
     },
-    {
-      name: "이태원할로윈축제",
-      position: "이태원역",
-      distance: "1.5km",
-    },
   ];
 
   const handleClick = (position) => {
@@ -54,6 +49,7 @@ export default function List() {
               <MdOutlinePlace />
               &nbsp;{item.position}
             </p>
+            <img src={process.env.PUBLIC_URL + "/image.png"} alt="img"></img>
             <div className="list-distance">
               <p>현재 내 위치에서</p>
               <hr />

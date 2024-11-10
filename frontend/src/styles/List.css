@@ -69,7 +69,12 @@
     background-color: #ffe5df;
   }
 
-
+  & img {
+    width: 97%;
+    height: 180px;
+    margin: auto;
+    border-radius: 10px;
+  }
 }
 
 .list-position {
