@@ -61,11 +61,6 @@ public class GptController {
             }
     )
     public ResponseEntity<?> getAiResponse(@RequestParam String query) throws InterruptedException {
-        count++;
-        Long topQuestionId = null;
-        if(count>5){
-            return ResponseEntity.ok().body("과금 방지 제한");
-        }
 
         JsonArray jsonArray = gptService.listAssistants();
         String assistantId = null;
@@ -106,4 +101,60 @@ public class GptController {
         String runId = gptService.createRun(threadId, assistantId);
         return gptService.getResponse(threadId, runId);
     }
+
+//    @PostMapping("/file")
+//    @Transactional
+//    @Operation(
+//            summary = "get Ai Response from Backend Server",
+//            responses = {
+//                    @ApiResponse(
+//                            responseCode = "200",
+//                            description = "Successful operation",
+//                            content = @Content(
+//                                    mediaType = "application/json",
+//                                    schema = @Schema(implementation = SuccessResponse.class)
+//                            )
+//                    ),
+//                    @ApiResponse(
+//                            responseCode = "400",
+//                            description = "Bad request",
+//                            content = @Content(
+//                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+//                                    schema = @Schema(implementation = ErrorResponse.class)
+//                            )
+//                    ),
+//                    @ApiResponse(
+//                            responseCode = "401",
+//                            description = "Bad credentials",
+//                            content = @Content(
+//                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+//                                    schema = @Schema(implementation = ErrorResponse.class)
+//                            )
+//                    )
+//            }
+//    )
+//    public ResponseEntity<?> getAiResponse(@RequestParam String query) throws InterruptedException {
+//
+//        JsonArray jsonArray = gptService.listAssistants();
+//        String assistantId = null;
+//
+//        for (JsonElement element : jsonArray) {
+//            JsonObject assistant = element.getAsJsonObject();
+//            if (assistant.has("name") && "plankton".equals(assistant.get("name").getAsString())) {
+//                log.info("already exist: {}", assistant.get("name").getAsString());
+//                assistantId = assistant.get("id").getAsString();
+//                log.info("assistantId: {}", assistantId);
+//                break;
+//            }
+//        }
+//
+//        if (assistantId == null) {
+//            log.info("new");
+//            assistantId = gptService.getAssistantId("gpt-4o", "plankton");
+//        }
+//
+//        String gptFeedback = response(query, assistantId);
+//
+//        return ResponseEntity.ok().body(gptFeedback);
+//    }
 }

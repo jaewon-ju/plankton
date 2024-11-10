@@ -1,10 +1,7 @@
 package plankton.backend.controller;
 
-import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import nl.martijndwars.webpush.Subscription;
-import org.jose4j.lang.JoseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +23,10 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 @RestController
 @Slf4j
@@ -35,14 +34,13 @@ import java.util.concurrent.ExecutionException;
 public class PostController {
 
     private final PostService postService;
+    private final SimpMessagingTemplate messagingTemplate;
+
     private Subscription subscription = null; // 메모리에 구독 정보 저장
 
-    private String publicKey = "BB4P3QAB6tIVb0DBufMf3YQXIpZqPpT30l5YHsevtR09AUvFDQ9cOgIADZa_it1NUAjJeFAx6lRlXhZvPhr42Zo"; // ToDo
-
-    private String privateKey = "aWRI92zsdPlS5cRkgMwQ63PNzEFSxP3m2EMJRQCEE8Y"; //ToDo
-
-    public PostController(PostService postService) {
+    public PostController(PostService postService, SimpMessagingTemplate messagingTemplate) {
         this.postService = postService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping
@@ -79,6 +77,13 @@ public class PostController {
                 .build();
 
         postService.createPost(postDto);
+
+        // 클라이언트에 WebSocket 메시지 전송
+        Map<String, String> message = new HashMap<>();
+        message.put("title", postDto.getTitle());
+        message.put("content", postDto.getContent());
+        messagingTemplate.convertAndSend("/topic/posts", message);
+
         return new ResponseEntity<>("Post Saved To DB", HttpStatus.OK);
     }
 }
