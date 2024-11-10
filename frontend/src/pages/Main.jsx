@@ -11,13 +11,9 @@ export default function Main() {
   const [isLoading, setIsLoading] = useState(false);
   const [info, setInfo] = useState({});
   const location = useLocation();
-  const [hotspotName, setHotspotName] = useState(
-    location.state?.position || ""
-  );
+  const [hotspotName, setHotspotName] = useState("여의도한강공원");
 
   const fetchCongestionData = async () => {
-    if (!hotspotName) return;
-
     setIsLoading(true); // 로딩 시작
     const { status, data } = await getCongestionData(hotspotName);
 
@@ -40,10 +36,8 @@ export default function Main() {
   };
 
   useEffect(() => {
-    if (location.state?.position) {
-      setHotspotName(location.state.position); // Set hotspot name from location state
-    }
-  }, [location.state?.position]);
+    setHotspotName("여의도한강공원"); // Set hotspot name from location state
+  }, []);
 
   useEffect(() => {
     fetchCongestionData();
