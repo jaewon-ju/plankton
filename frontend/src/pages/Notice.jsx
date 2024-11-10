@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "@/styles/notice.css";
+import "@/styles/Notice.css";
 
 export default function Notice() {
   const [notices, setNotices] = useState([]);
@@ -38,37 +38,35 @@ export default function Notice() {
   };
 
   return (
-    <div className="notice">
-      <div className="notice-container">
-        <div className="notice-title">
-          <h1>관리자 공지글</h1>
-        </div>
-        <div className="notice-list">
-          {isLoading ? (
-            <p>로딩 중입니다...</p>
-          ) : (
-            notices.map((element, index) => (
-              <div className="notice-box" key={index}>
-                {/* <p style={{ color: "red" }}>
+    <div className="notice-container">
+      <div className="notice-title">
+        <h1>관리자 공지글</h1>
+      </div>
+      <div className="notice-list">
+        {isLoading ? (
+          <p>로딩 중입니다...</p>
+        ) : (
+          notices.map((element, index) => (
+            <div className="notice-box" key={index}>
+              {/* <p style={{ color: "red" }}>
                   {formatTimestamp(element.timestamp)}
                 </p> */}
-                <div
-                  className="notice-box-content"
-                  style={{ borderLeftColor: "red" }}
-                >
-                  <h1 style={{ color: "red" }}>{element.title}</h1>
-                  <h4>{element.content}</h4>
-                  {/* {element.image && (
+              <div
+                className="notice-box-content"
+                style={{ borderLeftColor: "red" }}
+              >
+                <h1 style={{ color: "red" }}>{element.title}</h1>
+                <h4>{element.content}</h4>
+                {/* {element.image && (
                     <img
                       src={`${process.env.REACT_APP_BASE_URL}/img/${element.image}`}
                       alt={`notice-${index}`}
                     />
                   )} */}
-                </div>
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
