@@ -79,26 +79,6 @@ public class PostController {
                 .build();
 
         postService.createPost(postDto);
-
-        String payload = postRequest.getTitle() + " " +postRequest.getContent();
-        sendPushNotification(subscription, payload);
-        return new ResponseEntity<>("Notifications sent!", HttpStatus.OK);
-    }
-
-    @PostMapping("/save-subscription")
-    public ResponseEntity<?> saveSubscription(@RequestBody Subscription subscription) {
-        this.subscription = subscription;
-        return ResponseEntity.status(200).body("Subscription saved.");
-    }
-
-    private void sendPushNotification(Subscription subscription, String payload) {
-        try {
-            PushService pushService = new PushService(publicKey, privateKey);
-            Notification notification = new Notification(subscription, payload);
-            pushService.send(notification);
-            log.info("good");
-        } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
-            System.err.println("Notification error: " + e.getMessage());
-        }
+        return new ResponseEntity<>("Post Saved To DB", HttpStatus.OK);
     }
 }
